@@ -24,10 +24,17 @@ const bookingRouter = require("./routes/booking.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
+if (!dbUrl) {
+    console.error("❌ ERROR: ATLASDB_URL environment variable is not set!");
+    console.error("Please set ATLASDB_URL in your deployment environment variables.");
+    console.error("Example: mongodb+srv://username:password@cluster.mongodb.net/database");
+    process.exit(1);
+}
+
 main().then(() => {
-    console.log("connected to DB");
+    console.log("✅ Connected to DB");
 }).catch((err) => {
-    console.log(err);
+    console.log("❌ DB Connection Error:", err);
 });
 
 async function main() {
